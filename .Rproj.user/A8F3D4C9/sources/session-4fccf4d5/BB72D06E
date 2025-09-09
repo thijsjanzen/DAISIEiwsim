@@ -1,0 +1,27 @@
+{
+    "id": "BB72D06E",
+    "path": "~/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_core_cr_rcpp.R",
+    "project_path": "R/DAISIE_sim_core_cr_rcpp.R",
+    "type": "r_source",
+    "hash": "1802565745",
+    "contents": "",
+    "dirty": false,
+    "created": 1757418783287.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "tempName": "Untitled3",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "49,16",
+        "scrollLine": "42"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1757425422,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1757425422883,
+    "read_only": false,
+    "read_only_alternatives": []
+}

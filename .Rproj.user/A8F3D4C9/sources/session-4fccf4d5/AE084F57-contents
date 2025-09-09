@@ -1,0 +1,30 @@
+profvis::profvis(
+
+for(r in 1:10) {
+  
+
+par_values <- c(1,2,3,4,5)
+
+par_values[1] <- runif(1,0,1)
+par_values[2] <- runif(1, 0, 0.5)
+par_values[3] <- runif(1, 0, 2000)
+par_values[4] <- runif(1, 0, 0.05)
+par_values[5] <- runif(1, 0, 1.5)
+
+
+#profvis::profvis(
+DAISIEiwsim::DAISIE_sim_cr(
+  time = 20,
+  M = 1000,
+  pars = as.numeric(c(par_values[1], par_values[2], par_values[3], par_values[4], par_values[5])),
+  replicates = 1,
+  divdepmodel = "IW",
+  nonoceanic_pars = c(0, 0),
+  sample_freq  = Inf,
+  plot_sims = FALSE,
+  verbose = FALSE,
+  cond = 1
+)
+}
+
+)

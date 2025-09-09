@@ -1,0 +1,5 @@
+memory profiling: GC profiling: line profiling: sample.interval=10000
+#File 1: /Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_core_cr.R
+#File 2: /Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_cr_iw.R
+#File 3: /Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_cr.R
+:1016748:1267140:63342944:3122:"testit::assert" 1#101 "DAISIE_sim_core_cr" 2#25 "DAISIE_sim_cr_iw" 3#207 "DAISIEiwsim::DAISIE_sim_cr" "__profvis_execute__" "profvis::profvis" 
