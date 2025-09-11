@@ -118,36 +118,37 @@ struct island_spec {
     data_[index].type_species = species_type::C;
     data_[index].id = max_spec_id + 1;
     auto old_anc_type = data_[index].anc_type;
+    old_anc_type.push_back(species::B);
     data_[index].anc_type.push_back(species::A);
 
     data_.push_back(island_spec_row(max_spec_id + 2, 
                                     data_[index].parent, 
                                     data_[index].colonisation_time,
                                     species_type::C,
-                                    old_anc_type.push_back(species::B),
+                                    old_anc_type,
                                     t));
   }
 
   void clado_genesis_not_c(size_t index, size_t max_spec_id, double t) {
     data_[index].type_species = species_type::C;
-    data_[index].id = max_spec_id + 1;
-    data_[index].anc_type = std::vector<species>(species_type::A);
+    data_[index].id = static_cast<double>(max_spec_id + 1);
+    data_[index].anc_type = std::vector<species>({species::A});
     data_[index].extinction_time = data_[index].colonisation_time;
 
     data_.push_back(island_spec_row(max_spec_id + 2, 
                                     data_[index].parent, 
                                     data_[index].colonisation_time,
                                     species_type::C,
-                                    std::vector<species>(species::B),
+                                    std::vector<species>({species::B}),
                                     t));
   }
 
 
   void cladogenesis(size_t index, size_t *max_spec_id, double t) {
     if (data_[index].type_species == species_type::C) {
-      clado_genesis_c(index, max_spec_id, t);
+      clado_genesis_c(index, *max_spec_id, t);
     } else {
-      clado_genesis_not_c(index, max_spec_id, t);
+      clado_genesis_not_c(index, *max_spec_id, t);
     }
     *max_spec_id += 2;
   }

@@ -1,45 +1,73 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "util.h"
+#include "DAISIE_sim.h"
+#include "island.h"
 
-
-
-// You can include R code blocks in C++ files processed with sourceCpp
-// (useful for testing and development). The R code will be automatically 
-// run after the compilation.
-//
-
-Rcpp::List execute_time_loop_rcpp(double timeval,
-                                  double total_time,
+Rcpp::List execute_time_loop_rcpp(double total_time,
                                   std::vector<double>& pars,
-                                  double hyuper_pars,
+                                  double hyper_par_d,
+                                  double hyper_par_x,
                                   double area_pars,
                                   double K,
-                                  int num_spec,
-                                  int num_immigrants,
+                                  int seed,
                                   int mainland_n,
                                   int island_ontogeny,
-                                  int sea_level) {
-  /*
-  double t = 0.0;
-  while(t < timeval) {
-    update_rates();
-    calc_next_timeval();
-    if (timeval < total_time) {
-      rates <- update_rates();
-      event = DAISIE_sample_event_cr();
-      updated_state <- DAISIE_sim_update_state_cr();
-      
-      island_spec <- updated_state$island_spec
-      maxspecID <- updated_state$maxspecID
-      stt_table <- updated_state$stt_table
-      num_spec <- length(island_spec[, 1])
-        num_immigrants <- length(which(island_spec[, 4] == "I"))
-    }
-
+                                  int sea_level,
+                                  double max_area,
+                                  double total_island_age,
+                                  double proportional_peak_t,
+                                  double sea_level_frequency,
+                                  double total_island_age,
+                                  double total_time,
+                                  double amplitude,
+                                  double current_area,
+                                  double island_gradient_angle) {
+  
+  if (island_ontogeny == 0 && sea_level == 0) {
+    auto is = island_static();
+    DAISIE_sim<island_static> sim(pars,
+                                  hyper_par_d,
+                                  hyper_par_x,
+                                  mainland_n,
+                                  total_time,
+                                  seed,
+                                  is);
+    sim.run();
   }
   
- */
+  if (island_ontogeny == 1 && sea_level == 0) {
+    auto is_b = island_beta(max_area,
+                          total_island_age,
+                          proportional_peak_t);
+    
+    DAISIE_sim<island_beta> sim(pars,
+                                hyper_par_d,
+                                hyper_par_x,
+                                mainland_n,
+                                total_time,
+                                seed,
+                                is_b);
+    sim.run();
+  }
   
+  if (island_ontogeny == 0 && sea_level == 1) {
+    auto is_a = island_angular(sea_level_frequency,
+                               total_island_age,
+                               total_time,
+                               amplitude,
+                               current_area,
+                               island_gradient_angle);
+    
+    DAISIE_sim<island_angular> sim(pars,
+                                hyper_par_d,
+                                hyper_par_x,
+                                mainland_n,
+                                total_time,
+                                seed,
+                                is_a);
+    sim.run();
+  }
   
 }
