@@ -53,19 +53,17 @@ DAISIE_sim_core_cr_rcpp <- function(
   num_spec <- length(island_spec[, 1])
   num_immigrants <- length(which(island_spec[, 4] == "I"))
   
-  results <- execute_time_loop_rcpp(timeval,
-                               total_time,
-                               gam,
-                               laa,
-                               lac,
-                               mu,
-                               K,
-                               mainland_n,
-                               trait_pars,
-                               max_n)
+  results <- execute_time_loop_rcpp(total_time,
+                                    pars,
+                                    hyper_pars,
+                                    area_pars,
+                                    seed,
+                                    mainland_n,
+                                    island_ontogeny,
+                                    sea_level)
   
   stt_table = results$stt_table
-  colnames(stt_table) <- c("Time","nI","nA","nC","nI2","nA2","nC2")
+  colnames(stt_table) <- c("Time","nI","nA","nC")
   island_spec = results$island_spec
   
   

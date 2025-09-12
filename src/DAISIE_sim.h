@@ -38,21 +38,34 @@ struct rnd {
 
 
 enum event {immigration, extinction, anagenesis, cladogenesis};
+using sttdata = std::vector< std::array< double, 4 >>;
+
+
+class DAISIE_sim {
+public:
+  virtual void run() = 0;
+  virtual ~DAISIE_sim() {}
+  island_spec island_spec_;
+  sttdata stt_table_;
+};
+
+
 
 template<typename ISLAND>
-struct DAISIE_sim {
+struct DAISIE_sim_impl : public DAISIE_sim {
   
-  //std::vector<double> rates;
   double t;
   double total_time;
   ISLAND A;
   const double hyper_pars_d;
   const double hyper_pars_x;
+  
   double K;
   double lac;
   double laa;
   double mu;
   double gam;
+  
   double max_ext_rate;
   const double mainland_n;
   size_t max_spec_id;
@@ -65,9 +78,10 @@ struct DAISIE_sim {
   rnd rnd_;
   
   island_spec island_spec_;
+  sttdata stt_table_;
   
   
-  DAISIE_sim(const std::vector<double>& pars,
+  DAISIE_sim_impl(const std::vector<double>& pars,
              double h_pars_d,
              double h_pars_x,
              double num_mainland,
@@ -76,8 +90,8 @@ struct DAISIE_sim {
              ISLAND a_in) : 
     hyper_pars_d(h_pars_d), 
     hyper_pars_x(h_pars_x),
-    mainland_n(num_mainland),
     total_time(max_time),
+    mainland_n(num_mainland),
     A(a_in) {
     lac = pars[0];
     mu  = pars[1];
@@ -92,9 +106,11 @@ struct DAISIE_sim {
   }
   
   
-  void run() {
+  void run() override {
     double t = 0.0;
     island_spec_.clear();
+    stt_table_.clear();
+    stt_table_.push_back({total_time, 0, 0, 0, 0, 0, 0});
     num_species    = island_spec_.size();
     num_immigrants = island_spec_.num_immigrants();
     max_spec_id = 0;
@@ -110,8 +126,9 @@ struct DAISIE_sim {
         
         DAISIE_sim_update_state_cr(chosen_event);
         
+        update_stt_table();
         num_species = island_spec_.size();
-        num_immigrants = island_spec_.num_immigrants();
+        num_immigrants = stt_table_.back()[1];
       }
     }
   }
@@ -123,6 +140,12 @@ struct DAISIE_sim {
     rates[extinction]   = get_extinction_rate();
     rates[anagenesis]   = get_anagenesis_rate();
     rates[cladogenesis] = get_cladogenesis_rate();
+  }
+  
+  void update_stt_table() {
+    
+    std::array<double, 4> add = island_spec_.get_stt();
+    stt_table_.push_back(add);
   }
   
   void DAISIE_sim_update_state_cr(const event chosen_event) {
@@ -307,3 +330,4 @@ struct DAISIE_sim {
     return;
   }
 };
+

@@ -152,4 +152,14 @@ struct island_spec {
     }
     *max_spec_id += 2;
   }
+  
+  std::array<double, 4> get_stt(double t) {
+    std::array<double, 4> out = {t, 0, 0, 0};
+    for (const auto& i : data_) {
+      if (i.type_species == species_type::I) out[1]++;
+      if (i.type_species == species_type::A) out[2]++;
+      if (i.type_species == species_type::C) out[3]++;
+    }
+    return out;
+  }
 };

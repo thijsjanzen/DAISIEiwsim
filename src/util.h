@@ -4,9 +4,9 @@
 #include <vector>
 #include "island_spec.h"
 
-Rcpp::NumericMatrix make_stt_table_for_R(const std::vector< std::array< double, 7 >>& stt_table) {
+Rcpp::NumericMatrix make_stt_table_for_R(const std::vector< std::array< double, 4 >>& stt_table) {
   int num_rows = stt_table.size();
-  int num_cols = 7;
+  int num_cols = 4;
   Rcpp::NumericMatrix out(num_rows, num_cols);
   for (size_t i = 0; i < num_rows; ++i) {
     for (size_t j = 0; j < num_cols; ++j) {
