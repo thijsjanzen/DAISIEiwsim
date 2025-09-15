@@ -1,5 +1,21 @@
 {
     "debugBreakpointsState": {
-        "breakpoints": []
+        "breakpoints": [
+            {
+                "id": 0,
+                "path": "~/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_core_cr.R",
+                "line_number": 127,
+                "function_steps": "25",
+                "function_name": "DAISIE_sim_core_cr",
+                "state": 1,
+                "editor_state": 1,
+                "editor_line_number": 127,
+                "is_pending_debug_completion": false,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": true,
+                "package_name": "DAISIEiwsim"
+            }
+        ]
     }
 }

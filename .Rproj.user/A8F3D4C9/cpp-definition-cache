@@ -1,7 +1,7 @@
 [
     {
         "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-        "file_last_write": 1757425692.0,
+        "file_last_write": 1757676421.0,
         "definitions": [
             {
                 "usr": "c:@S@rnd",
@@ -9,7 +9,7 @@
                 "parent_name": "",
                 "name": "rnd",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 7,
+                "line": 9,
                 "column": 8,
                 "hidden": false
             },
@@ -19,7 +19,7 @@
                 "parent_name": "rnd",
                 "name": "set_seed(unsigned int)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 18,
+                "line": 20,
                 "column": 8,
                 "hidden": false
             },
@@ -29,7 +29,7 @@
                 "parent_name": "rnd",
                 "name": "exp(double)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 22,
+                "line": 24,
                 "column": 10,
                 "hidden": false
             },
@@ -39,8 +39,18 @@
                 "parent_name": "rnd",
                 "name": "uniform(double)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 27,
+                "line": 29,
                 "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@rnd@F@random_number#i#",
+                "kind": 7,
+                "parent_name": "rnd",
+                "name": "random_number(unsigned int)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 34,
+                "column": 7,
                 "hidden": false
             },
             {
@@ -49,7 +59,7 @@
                 "parent_name": "",
                 "name": "event",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 39,
+                "line": 40,
                 "column": 6,
                 "hidden": false
             },
@@ -59,7 +69,7 @@
                 "parent_name": "",
                 "name": "immigration",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 39,
+                "line": 40,
                 "column": 13,
                 "hidden": false
             },
@@ -69,7 +79,7 @@
                 "parent_name": "",
                 "name": "extinction",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 39,
+                "line": 40,
                 "column": 26,
                 "hidden": false
             },
@@ -79,7 +89,7 @@
                 "parent_name": "",
                 "name": "anagenesis",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 39,
+                "line": 40,
                 "column": 38,
                 "hidden": false
             },
@@ -89,108 +99,315 @@
                 "parent_name": "",
                 "name": "cladogenesis",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 39,
+                "line": 40,
                 "column": 50,
                 "hidden": false
             },
             {
                 "usr": "c:@S@DAISIE_sim",
-                "kind": 3,
+                "kind": 2,
                 "parent_name": "",
                 "name": "DAISIE_sim",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 41,
-                "column": 8,
+                "line": 42,
+                "column": 7,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@update_rates#",
-                "kind": 7,
-                "parent_name": "DAISIE_sim",
-                "name": "update_rates",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl",
+                "kind": 2,
+                "parent_name": "",
+                "name": "DAISIE_sim_impl<ISLAND>",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 83,
+                "line": 51,
                 "column": 8,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@run#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@run#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "run",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 91,
+                "line": 104,
                 "column": 8,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@DAISIE_sim_update_state_cr#1$@E@event#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@update_rates#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "update_rates",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 128,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@DAISIE_sim_update_state_cr#1$@E@event#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "DAISIE_sim_update_state_cr(const event)",
-                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 113,
-                "column": 8,
-                "hidden": false
-            },
-            {
-                "usr": "c:@S@DAISIE_sim@F@DAISIE_sample_event_cr#",
-                "kind": 7,
-                "parent_name": "DAISIE_sim",
-                "name": "DAISIE_sample_event_cr",
-                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 126,
-                "column": 9,
-                "hidden": false
-            },
-            {
-                "usr": "c:@S@DAISIE_sim@F@calc_next_timeval#*d#",
-                "kind": 7,
-                "parent_name": "DAISIE_sim",
-                "name": "calc_next_timeval(double *)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
                 "line": 137,
                 "column": 8,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@get_immigration_rate#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@do_immigration#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "do_immigration",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 150,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@do_anagenesis#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "do_anagenesis",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 161,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@do_cladogenesis#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "do_cladogenesis",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 178,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@do_extinction#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "do_extinction",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 183,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@DAISIE_sample_event_cr#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "DAISIE_sample_event_cr",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 194,
+                "column": 9,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@calc_next_timeval#*d#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "calc_next_timeval(double *)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 205,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@get_immigration_rate#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "get_immigration_rate",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 148,
+                "line": 216,
                 "column": 10,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@get_extinction_rate#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@get_extinction_rate#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "get_extinction_rate",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 154,
+                "line": 222,
                 "column": 10,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@get_anagenesis_rate#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@get_anagenesis_rate#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "get_anagenesis_rate",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 164,
+                "line": 232,
                 "column": 10,
                 "hidden": false
             },
             {
-                "usr": "c:@S@DAISIE_sim@F@get_cladogenesis_rate#",
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@get_cladogenesis_rate#",
                 "kind": 7,
-                "parent_name": "DAISIE_sim",
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
                 "name": "get_cladogenesis_rate",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
-                "line": 168,
+                "line": 236,
                 "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@ST>1#T@DAISIE_sim_impl@F@remove_cladogenetic#l#",
+                "kind": 7,
+                "parent_name": "DAISIE_sim_impl<ISLAND>",
+                "name": "remove_cladogenetic(size_t)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 250,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@create_daisie_sim#d#&$@N@std@N@__1@S@vector>#d#$@N@std@N@__1@S@allocator>#d#d#d#d#d#I#I#I#I#d#d#d#d#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "create_daisie_sim(double, std::vector<double> &, double, double, double, double, int, int, int, int, double, double, double, double, double, double, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/DAISIE_sim.h",
+                "line": 320,
+                "column": 36,
+                "hidden": false
+            }
+        ],
+        "hidden": false
+    },
+    {
+        "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+        "file_last_write": 1757676424.0,
+        "definitions": [
+            {
+                "usr": "c:@S@island",
+                "kind": 3,
+                "parent_name": "",
+                "name": "island",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 3,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_static",
+                "kind": 3,
+                "parent_name": "",
+                "name": "island_static",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 8,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_static@F@update_area#d#",
+                "kind": 7,
+                "parent_name": "island_static",
+                "name": "update_area(double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 9,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@A_beta",
+                "kind": 2,
+                "parent_name": "",
+                "name": "A_beta",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 17,
+                "column": 7,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@A_beta@F@calc_Abeta#d#d#1",
+                "kind": 7,
+                "parent_name": "A_beta",
+                "name": "calc_Abeta(double, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 27,
+                "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@angular",
+                "kind": 2,
+                "parent_name": "",
+                "name": "angular",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 43,
+                "column": 7,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@angular@F@calc_angular#d#d#1",
+                "kind": 7,
+                "parent_name": "angular",
+                "name": "calc_angular(double, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 57,
+                "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_beta",
+                "kind": 3,
+                "parent_name": "",
+                "name": "island_beta",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 75,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_beta@F@update_area#d#",
+                "kind": 7,
+                "parent_name": "island_beta",
+                "name": "update_area(double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 85,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_angular",
+                "kind": 3,
+                "parent_name": "",
+                "name": "island_angular",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 94,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_angular@F@update_area#d#",
+                "kind": 7,
+                "parent_name": "island_angular",
+                "name": "update_area(double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 115,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_beta_angular",
+                "kind": 3,
+                "parent_name": "",
+                "name": "island_beta_angular",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 126,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_beta_angular@F@update_area#d#",
+                "kind": 7,
+                "parent_name": "island_beta_angular",
+                "name": "update_area(double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island.h",
+                "line": 148,
+                "column": 8,
                 "hidden": false
             }
         ],
@@ -198,7 +415,7 @@
     },
     {
         "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-        "file_last_write": 1757425676.0,
+        "file_last_write": 1757596960.0,
         "definitions": [
             {
                 "usr": "c:@E@species_type",
@@ -316,7 +533,7 @@
                 "parent_name": "",
                 "name": "island_spec",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 52,
+                "line": 62,
                 "column": 8,
                 "hidden": false
             },
@@ -326,7 +543,7 @@
                 "parent_name": "island_spec",
                 "name": "empty",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 55,
+                "line": 65,
                 "column": 8,
                 "hidden": false
             },
@@ -336,8 +553,18 @@
                 "parent_name": "island_spec",
                 "name": "size",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 59,
+                "line": 69,
                 "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@clear#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "clear",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 73,
+                "column": 8,
                 "hidden": false
             },
             {
@@ -346,7 +573,7 @@
                 "parent_name": "island_spec",
                 "name": "num_immigrants",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 63,
+                "line": 77,
                 "column": 10,
                 "hidden": false
             },
@@ -356,7 +583,7 @@
                 "parent_name": "island_spec",
                 "name": "operator[](int)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 71,
+                "line": 85,
                 "column": 20,
                 "hidden": false
             },
@@ -366,7 +593,7 @@
                 "parent_name": "island_spec",
                 "name": "operator[](int)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 75,
+                "line": 89,
                 "column": 19,
                 "hidden": false
             },
@@ -376,7 +603,67 @@
                 "parent_name": "island_spec",
                 "name": "push_back(const island_spec_row &)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
-                "line": 79,
+                "line": 93,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@find_species#1l#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "find_species(const size_t)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 97,
+                "column": 10,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@remove#l#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "remove(size_t)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 107,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@anagenesis#l#l#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "anagenesis(size_t, size_t)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 111,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@clado_genesis_c#l#l#d#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "clado_genesis_c(size_t, size_t, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 117,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@clado_genesis_not_c#l#l#d#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "clado_genesis_not_c(size_t, size_t, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 132,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@S@island_spec@F@cladogenesis#l#*l#d#",
+                "kind": 7,
+                "parent_name": "island_spec",
+                "name": "cladogenesis(size_t, size_t *, double)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/island_spec.h",
+                "line": 147,
                 "column": 8,
                 "hidden": false
             }
@@ -385,16 +672,83 @@
     },
     {
         "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/time_loop.cpp",
-        "file_last_write": 1757423077.0,
+        "file_last_write": 1757676421.0,
         "definitions": [
             {
-                "usr": "c:@F@execute_time_loop_rcpp#d#d#&$@N@std@N@__1@S@vector>#d#$@N@std@N@__1@S@allocator>#d#d#d#d#I#I#I#I#I#",
+                "usr": "c:@F@execute_time_loop_rcpp#d#&$@N@std@N@__1@S@vector>#d#$@N@std@N@__1@S@allocator>#d#d#d#d#d#I#I#I#I#d#d#d#d#d#d#d#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "execute_time_loop_rcpp(double, double, std::vector<double> &, double, double, double, int, int, int, int, int)",
+                "name": "execute_time_loop_rcpp(double, std::vector<double> &, double, double, double, double, int, int, int, int, double, double, double, double, double, double, double)",
                 "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/time_loop.cpp",
-                "line": 12,
+                "line": 8,
                 "column": 12,
+                "hidden": false
+            }
+        ],
+        "hidden": false
+    },
+    {
+        "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+        "file_last_write": 1757597008.0,
+        "definitions": [
+            {
+                "usr": "c:@F@make_stt_table_for_R#&1$@N@std@N@__1@S@vector>#$@N@std@N@__1@S@array>#d#Vl7#$@N@std@N@__1@S@allocator>#S2_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "make_stt_table_for_R(const std::vector<std::array<double, 7>> &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 7,
+                "column": 21,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@get_string#&1$@E@extinction_type#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "get_string(const extinction_type &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 19,
+                "column": 13,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@get_string#&1$@E@species_type#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "get_string(const species_type &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 29,
+                "column": 13,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@get_string#&1$@N@std@N@__1@S@vector>#$@E@species#$@N@std@N@__1@S@allocator>#S2_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "get_string(const std::vector<species> &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 36,
+                "column": 13,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@make_island_spec_for_R#&1$@S@island_spec#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "make_island_spec_for_R(const island_spec &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 45,
+                "column": 20,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@match_motif#&1$@N@std@N@__1@S@vector>#$@E@species#$@N@std@N@__1@S@allocator>#S2_#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "match_motif(const std::vector<species> &, const std::vector<species> &)",
+                "file": "/Users/thijsjanzen/Documents/GitHub/DAISIEiwsim/src/util.h",
+                "line": 61,
+                "column": 6,
                 "hidden": false
             }
         ],
