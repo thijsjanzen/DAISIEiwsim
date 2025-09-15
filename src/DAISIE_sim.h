@@ -22,17 +22,20 @@ struct rnd {
   }
   
   double exp(double lambda) {
-    std::exponential_distribution<double> d(lambda);
-    return d(rndgen_);
+   // std::exponential_distribution<double> d(lambda);
+    //return d(rndgen_);
+    return R::rexp(1.0 / lambda);
   }
   
   double uniform(double max_val) {
-    std::uniform_real_distribution<> unif_dist(0, max_val);
-    return unif_dist(rndgen_);
+    //std::uniform_real_distribution<> unif_dist(0, max_val);
+    //return unif_dist(rndgen_);
+    return R::runif(0, max_val);
   }
   
   int random_number(unsigned int n) {
-    return std::uniform_int_distribution<> (0, n-1)(rndgen_);
+    //return std::uniform_int_distribution<> (0, n-1)(rndgen_);
+    return static_cast<int>(R::runif(0, n-1));
   }
 };
 
@@ -110,7 +113,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     double t = 0.0;
     island_spec_.clear();
     stt_table_.clear();
-    stt_table_.push_back({total_time, 0, 0, 0, 0, 0, 0});
+    stt_table_.push_back({total_time, 0, 0, 0});
     num_species    = island_spec_.size();
     num_immigrants = island_spec_.num_immigrants();
     max_spec_id = 0;
@@ -143,8 +146,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   }
   
   void update_stt_table() {
-    
-    std::array<double, 4> add = island_spec_.get_stt();
+    std::array<double, 4> add = island_spec_.get_stt(t);
     stt_table_.push_back(add);
   }
   

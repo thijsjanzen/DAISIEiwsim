@@ -51,12 +51,14 @@ public:
     angular_freq(2 * M_PI * sea_level_frequency),
     proptime_curr(total_time / total_island_age),
     ampl(amplitude),
-    theta(island_gradient_angle) {
+    theta(island_gradient_angle),
+    current_area_(current_area) {
   }
 
-  double calc_angular(double proptime, double Acurr) const {
+  double calc_angular(double proptime, double Acurr = -1) const {
+    double Acurr_ = Acurr < 0.0 ? current_area_ : Acurr;
     auto delta_sl = ampl * std::cos((proptime_curr - proptime) * angular_freq);
-    auto r_curr = std::sqrt((Acurr) / M_PI);
+    auto r_curr = std::sqrt((Acurr_) / M_PI);
     auto h_curr = std::tan(theta) * r_curr;
     auto h_delta = h_curr - ampl + delta_sl;
     if (h_delta < 0) h_delta = 0.0;
@@ -69,6 +71,7 @@ private:
   const double proptime_curr;
   const double ampl;
   const double theta;
+  const double current_area_;
 };
 
 
