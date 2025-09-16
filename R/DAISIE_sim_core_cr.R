@@ -103,6 +103,7 @@ DAISIE_sim_core_cr <- function(
         rates = rates
       )
       
+      if (1 == 2) {
       if (possible_event == 1) {
         cat(timeval, "immigration\n")
       }
@@ -114,7 +115,7 @@ DAISIE_sim_core_cr <- function(
       }
       if (possible_event == 4) {
         cat(timeval, "cladogenesis\n")
-      }
+      }}
       
       
 

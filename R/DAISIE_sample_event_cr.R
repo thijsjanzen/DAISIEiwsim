@@ -17,7 +17,7 @@ DAISIE_sample_event_cr <- function(rates) {
   
   sum_rates = rates$immig_rate + rates$ext_rate + rates$ana_rate + rates$clado_rate
   r = runif(1, 0, sum_rates)
-  cat("sample event: ", r, "\n")
+ # cat("sample event: ", r, "\n")
   if (r < rates$immig_rate) return(1)
   if (r < rates$ext_rate) return(2)
   if (r < rates$ana_rate) return(3)

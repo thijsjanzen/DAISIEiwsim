@@ -5,7 +5,7 @@
 sample3 <- function(v, x) {
   num_entries <- length(v) 
   r <- runif(1, 0, num_entries - 1)
-  cat("sample: ", num_entries, r, "\n")
+  # cat("sample: ", num_entries, r, "\n")
   r <- 1 + floor(r)
   return(r)
 }

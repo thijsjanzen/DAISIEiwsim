@@ -213,7 +213,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void do_cladogenesis() {
     auto index = rnd_.random_number(island_spec_.size());
-    std::cerr << "clado: " << index << "\n";
+  //  std::cerr << "clado: " << index << "\n";
     island_spec_.cladogenesis(index, &max_spec_id, time_);
   }
   
