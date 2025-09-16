@@ -29,18 +29,10 @@ struct rnd {
     return out;
   }
   
-  /*double uniform(double max_val) {
-    //std::uniform_real_distribution<> unif_dist(0, max_val);
-    //return unif_dist(rndgen_);
-    double out = R::runif(0, max_val);
-    std::cerr << "unif: " << out << "\n";
-    return out;
-  }*/
-  
   int random_number(unsigned int n) {
     //return std::uniform_int_distribution<> (0, n-1)(rndgen_);
     auto r = R::runif(0, n - 1);
-    std::cerr << "sample: " << n << " " << r << "\n";
+   // std::cerr << "sample: " << n << " " << r << "\n";
     return static_cast<int>(r);
   }
 };
@@ -133,7 +125,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
         
         event chosen_event = DAISIE_sample_event_cr();
         
-        if (chosen_event == event::immigration) {
+        /*if (chosen_event == event::immigration) {
           std::cerr << time_ << " " << "immigration\n";
         }
         
@@ -145,7 +137,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
         }
         if (chosen_event == event::cladogenesis) {
           std::cerr << time_ << " " << "cladogenesis\n";
-        }
+        }*/
         
         
         DAISIE_sim_update_state_cr(chosen_event);
@@ -165,15 +157,15 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     rates[event::anagenesis]   = get_anagenesis_rate();
     rates[event::cladogenesis] = get_cladogenesis_rate();
 
-    std::cerr << "rates: ";
-    for (const auto& i : rates) {
-      std::cerr << i << " ";
-    } std::cerr << " " << num_species << "\n";
+    // std::cerr << "rates: ";
+    // for (const auto& i : rates) {
+    //   std::cerr << i << " ";
+    // } std::cerr << " " << num_species << "\n";
 
   }
   
   void update_stt_table() {
-    std::array<double, 4> add = island_spec_.get_stt(time_);
+    std::array<double, 4> add = island_spec_.get_stt(total_time - time_);
     stt_table_.push_back(add);
   }
   
@@ -192,7 +184,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void do_immigration() {
     auto colonist = rnd_.random_number(mainland_n); // +1 because of R counting
-    std::cerr << "immi: " << colonist << "\n";
+ //   std::cerr << "immi: " << colonist << "\n";
     int index = island_spec_.find_species(colonist);
     if (index >= island_spec_.size()) {
       // could not find colonist
@@ -214,7 +206,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     if (potential_immigrants.size() > 1) {
       index = potential_immigrants[ rnd_.random_number(potential_immigrants.size())];
     }
-    std::cerr << "ana: " << index << "\n";
+    // std::cerr << "ana: " << index << "\n";
     max_spec_id++;
     island_spec_.anagenesis(index, max_spec_id);
   }
@@ -227,7 +219,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void do_extinction() {
     auto index = rnd_.random_number(island_spec_.size());
-    std::cerr << "extinct: " << index << "\n";
+ //   std::cerr << "extinct: " << index << "\n";
     auto type_of_species = island_spec_[index].type_species;
     if (type_of_species == species_type::C) {
       remove_cladogenetic(index);
@@ -241,7 +233,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
    
    double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
     auto r = R::runif(0, sum_rates);    //rnd_.uniform(sum_rates);
-    std::cerr << "sum_rates: " << r << "\n";
+  //  std::cerr << "sum_rates: " << r << "\n";
     if (r < rates[immigration]) return immigration;
     if (r < rates[extinction])  return extinction;
     if (r < rates[anagenesis])  return anagenesis;
@@ -252,16 +244,16 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   void calc_next_timeval(double* t) {
     double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
 
-    std::cerr << "next_timeval: " << *t << " " << sum_rates << " ";
+  //  std::cerr << "next_timeval: " << *t << " " << sum_rates << " ";
        //       rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
     if (sum_rates > 0) {
       double dt = rnd_.exp(sum_rates);
-      std::cerr << dt << " ";
+ //     std::cerr << dt << " ";
       *t += dt;
     } else {
       *t = total_time;
     }
-    std::cerr << "\n";
+//    std::cerr << "\n";
     return;
   }
   

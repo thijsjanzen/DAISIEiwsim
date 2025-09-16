@@ -32,5 +32,5 @@ res2 <-  DAISIE_sim_cr(
   rcpp = TRUE
 )
 
-#cat(all.equal(res1, res2), "\n")
+cat(all.equal(res1, res2), "\n")
 cat("done\n")

@@ -2,6 +2,8 @@
 #define TRAISIE_UTIL_H
 
 #include <vector>
+#include <string>
+#include <sstream>
 #include "island_spec.h"
 
 Rcpp::NumericMatrix make_stt_table_for_R(const std::vector< std::array< double, 4 >>& stt_table) {
@@ -42,17 +44,24 @@ std::string get_string(const std::vector<species>& anc) {
   return out;
 }
 
+std::string d_to_string(const double& x, double precision = 10) {
+  // alternative to std::to_string that allows for precision.
+  std::ostringstream ss;
+  ss << std::fixed << std::setprecision(precision) << x;
+  return ss.str();
+}
+
 Rcpp::StringMatrix make_island_spec_for_R(const island_spec& is) {
   int num_rows = is.size();
   int num_cols = 7;
   Rcpp::StringMatrix out(num_rows, num_cols);
   for (size_t i = 0; i < is.size(); ++i) {
-    out(i, 0) = std::to_string(100 + is[i].id);
-    out(i, 1) = std::to_string(1 + is[i].parent);
-    out(i, 2) = std::to_string(is[i].colonisation_time);
+    out(i, 0) = std::to_string(100 + static_cast<int>(is[i].id));
+    out(i, 1) = std::to_string(1 + static_cast<int>(is[i].parent));
+    out(i, 2) = d_to_string(is[i].colonisation_time);
     out(i, 3) = get_string(is[i].type_species);
     out(i, 4) = get_string(is[i].anc_type);
-    out(i, 5) = std::to_string(is[i].extinction_time);
+    out(i, 5) = d_to_string(is[i].extinction_time);
     out(i, 6) = get_string(is[i].ext_type);
   }
   return out;
