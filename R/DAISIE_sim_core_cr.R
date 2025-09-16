@@ -1,7 +1,7 @@
 #' Internal function of the DAISIE simulation
 #'
 #' @inheritParams default_params_doc
-#' @keywords internal
+#' @export
 DAISIE_sim_core_cr <- function(
   time,
   mainland_n,
@@ -102,6 +102,21 @@ DAISIE_sim_core_cr <- function(
       possible_event <- DAISIE_sample_event_cr(
         rates = rates
       )
+      
+      if (possible_event == 1) {
+        cat(timeval, "immigration\n")
+      }
+      if (possible_event == 2) {
+        cat(timeval, "extinction\n")
+      }
+      if (possible_event == 3) {
+        cat(timeval, "anagenesis\n")
+      }
+      if (possible_event == 4) {
+        cat(timeval, "cladogenesis\n")
+      }
+      
+      
 
       updated_state <- DAISIE_sim_update_state_cr(
         timeval = timeval,

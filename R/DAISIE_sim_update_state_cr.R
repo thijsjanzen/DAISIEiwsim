@@ -26,7 +26,8 @@ DAISIE_sim_update_state_cr <- function(timeval,
   ##########################################
   #IMMIGRATION
   if (possible_event == 1) {
-    colonist <- DDD::sample2(mainland_spec, 1)
+    colonist <- DAISIEiwsim::sample3(mainland_spec, 1)
+    cat("immi: ", colonist, "\n")
     if (length(island_spec[, 1]) != 0) {
       isitthere <- which(island_spec[, 1] == colonist)
     } else {
@@ -43,7 +44,9 @@ DAISIE_sim_update_state_cr <- function(timeval,
   ##########################################
   #EXTINCTION
   if (possible_event == 2) {
-      extinct <- DDD::sample2(1:length(island_spec[, 1]), 1)
+      #extinct <- DDD::sample2(1:length(island_spec[, 1]), 1)
+    extinct <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
+    cat("extinct: ", extinct, "\n")
       #this chooses the row of species data to remove
       typeofspecies <- island_spec[extinct, 4]
       if (typeofspecies == "I") {
@@ -105,8 +108,10 @@ DAISIE_sim_update_state_cr <- function(timeval,
       anagenesis <- immi_specs
     }
     if (length(immi_specs) > 1) {
-      anagenesis <- DDD::sample2(immi_specs, 1)
+      #anagenesis <- DDD::sample2(immi_specs, 1)
+      anagenesis <- DAISIEiwsim::sample3(immi_specs, 1)
     }
+    cat("ana: ", anagenesis, "\n")
     maxspecID <- maxspecID + 1
     island_spec[anagenesis, 4] <- "A"
     island_spec[anagenesis, 1] <- maxspecID
@@ -115,7 +120,10 @@ DAISIE_sim_update_state_cr <- function(timeval,
   ##########################################
   #CLADOGENESIS - this splits species into two new species - both of which receive
   if (possible_event == 4) {
-      tosplit <- DDD::sample2(1:length(island_spec[, 1]), 1)
+      #tosplit <- DDD::sample2(1:length(island_spec[, 1]), 1)
+      tosplit <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
+    
+      cat("clado: ", tosplit, "\n")
       #if the species that speciates is cladogenetic
       if (island_spec[tosplit, 4] == "C") {
         #for daughter A

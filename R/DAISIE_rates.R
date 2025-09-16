@@ -115,6 +115,7 @@ update_rates <- function(timeval,
     ana_rate = ana_rate,
     clado_rate = clado_rate
   )
+  cat("rates: ", immig_rate, ext_rate, ana_rate, clado_rate, num_spec,"\n")
   return(rates)
 }
 
@@ -609,7 +610,7 @@ get_trans_rate <- function(trait_pars,
 #' @author Joshua Lambert, Pedro Neves, Shu Xie
 calc_next_timeval <- function(max_rates, timeval, total_time) {
   # testit::assert(timeval >= 0)
-
+  
   if (length(max_rates) == 4) {   ## no considering about two trait states
     totalrate <-
       max_rates[[1]] + max_rates[[2]] + max_rates[[3]] + max_rates[[4]]
@@ -619,12 +620,15 @@ calc_next_timeval <- function(max_rates, timeval, total_time) {
       max_rates[[5]] + max_rates[[6]] + max_rates[[7]] + max_rates[[8]] +
       max_rates[[9]] + max_rates[[10]]
   }
+  cat("calc_next_timeval ", timeval, totalrate, " ")
   if (totalrate != 0) {
-      dt <- stats::rexp(1, totalrate)
+      dt <- stats::rexp(n = 1, rate = totalrate)
+      cat("dt: ", dt)
       timeval <- timeval + dt
   } else {
       timeval <- total_time
   }
+  cat("\n")
   return(list(timeval = timeval, dt = dt))
 }
 

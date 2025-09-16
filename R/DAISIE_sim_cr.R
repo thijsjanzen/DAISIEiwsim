@@ -218,6 +218,8 @@ DAISIE_sim_cr <- DAISIE_sim <- function(
       verbose = verbose,
       rcpp = rcpp)
   }
+  sample(5)
+  
   if (divdepmodel == "CS") {
     island_replicates <- DAISIE_sim_cr_cs(
       total_time = total_time,

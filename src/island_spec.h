@@ -28,10 +28,13 @@ struct island_spec_row {
     extinction_time = -1.0;
   }
 
-  island_spec_row(double colonist, double timeval, species_type st) {
+  island_spec_row(double colonist, 
+                  double timeval, 
+                  species_type st) {
     parent = colonist;
     id = colonist;
     colonisation_time = timeval;
+    extinction_time = -1;
     type_species = st;
   }
 
@@ -41,6 +44,7 @@ struct island_spec_row {
     parent = parent_;
     id = id_;
     colonisation_time = timeval;
+    extinction_time = -1;
     type_species = st;
   }
 
@@ -49,7 +53,7 @@ struct island_spec_row {
                   double timeval,
                   species_type st,
                   std::vector< species > anc,
-                double ext_t) {
+                  double ext_t) {
     parent = parent_;
     id = id_;
     colonisation_time = timeval;
@@ -114,7 +118,7 @@ struct island_spec {
     data_[index].ext_type = immig_parent;
   }
 
-  void clado_genesis_c(size_t index, size_t max_spec_id, double t) {
+  void clado_genesis_c(const size_t index, const size_t max_spec_id, const double t) {
     data_[index].type_species = species_type::C;
     data_[index].id = max_spec_id + 1;
     auto old_anc_type = data_[index].anc_type;
@@ -129,7 +133,7 @@ struct island_spec {
                                     t));
   }
 
-  void clado_genesis_not_c(size_t index, size_t max_spec_id, double t) {
+  void clado_genesis_not_c(const size_t index, const size_t max_spec_id, const double t) {
     data_[index].type_species = species_type::C;
     data_[index].id = static_cast<double>(max_spec_id + 1);
     data_[index].anc_type = std::vector<species>({species::A});

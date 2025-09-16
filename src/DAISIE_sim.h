@@ -24,18 +24,24 @@ struct rnd {
   double exp(double lambda) {
    // std::exponential_distribution<double> d(lambda);
     //return d(rndgen_);
-    return R::rexp(1.0 / lambda);
+    double out =  R::rexp(1.0 / lambda);
+    //std::cerr << "exp: " << out << "\n";
+    return out;
   }
   
-  double uniform(double max_val) {
+  /*double uniform(double max_val) {
     //std::uniform_real_distribution<> unif_dist(0, max_val);
     //return unif_dist(rndgen_);
-    return R::runif(0, max_val);
-  }
+    double out = R::runif(0, max_val);
+    std::cerr << "unif: " << out << "\n";
+    return out;
+  }*/
   
   int random_number(unsigned int n) {
     //return std::uniform_int_distribution<> (0, n-1)(rndgen_);
-    return static_cast<int>(R::runif(0, n-1));
+    auto r = R::runif(0, n - 1);
+    std::cerr << "sample: " << n << " " << r << "\n";
+    return static_cast<int>(r);
   }
 };
 
@@ -56,12 +62,12 @@ public:
 
 template<typename ISLAND>
 struct DAISIE_sim_impl : public DAISIE_sim {
-  
-  double t;
-  double total_time;
-  ISLAND A;
   const double hyper_pars_d;
   const double hyper_pars_x;
+  double time_;
+  double total_time;
+  ISLAND A;
+ 
   
   double K;
   double lac;
@@ -69,7 +75,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   double mu;
   double gam;
   
-  double max_ext_rate;
+  double max_ext_rate = 1000.0;
   const double mainland_n;
   size_t max_spec_id;
   
@@ -80,8 +86,8 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   rnd rnd_;
   
-  island_spec island_spec_;
-  sttdata stt_table_;
+  // island_spec island_spec_;
+  // sttdata stt_table_;
   
   
   DAISIE_sim_impl(const std::vector<double>& pars,
@@ -94,8 +100,8 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     hyper_pars_d(h_pars_d), 
     hyper_pars_x(h_pars_x),
     total_time(max_time),
-    mainland_n(num_mainland),
-    A(a_in) {
+    A(a_in),
+    mainland_n(num_mainland) {
     lac = pars[0];
     mu  = pars[1];
     K   = pars[2];
@@ -110,7 +116,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   
   void run() override {
-    double t = 0.0;
+    time_ = 0.0;
     island_spec_.clear();
     stt_table_.clear();
     stt_table_.push_back({total_time, 0, 0, 0});
@@ -118,14 +124,29 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     num_immigrants = island_spec_.num_immigrants();
     max_spec_id = 0;
     
-    while(t < total_time) {
+    while(time_ < total_time) {
       update_rates();
-      calc_next_timeval(&t);
+      calc_next_timeval(&time_);
       
-      if (t < total_time) {
+      if (time_ < total_time) {
         update_rates();
         
         event chosen_event = DAISIE_sample_event_cr();
+        
+        if (chosen_event == event::immigration) {
+          std::cerr << time_ << " " << "immigration\n";
+        }
+        
+        if (chosen_event == event::extinction) {
+          std::cerr << time_ << " " << "extinction\n";
+        }
+        if (chosen_event == event::anagenesis) {
+          std::cerr << time_ << " " << "anagenesis\n";
+        }
+        if (chosen_event == event::cladogenesis) {
+          std::cerr << time_ << " " << "cladogenesis\n";
+        }
+        
         
         DAISIE_sim_update_state_cr(chosen_event);
         
@@ -137,16 +158,22 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   }
   
   void update_rates() {
-    A.update_area(t);
+    A.update_area(time_);
     
-    rates[immigration]  = get_immigration_rate();
-    rates[extinction]   = get_extinction_rate();
-    rates[anagenesis]   = get_anagenesis_rate();
-    rates[cladogenesis] = get_cladogenesis_rate();
+    rates[event::immigration]  = get_immigration_rate();
+    rates[event::extinction]   = get_extinction_rate();
+    rates[event::anagenesis]   = get_anagenesis_rate();
+    rates[event::cladogenesis] = get_cladogenesis_rate();
+
+    std::cerr << "rates: ";
+    for (const auto& i : rates) {
+      std::cerr << i << " ";
+    } std::cerr << " " << num_species << "\n";
+
   }
   
   void update_stt_table() {
-    std::array<double, 4> add = island_spec_.get_stt(t);
+    std::array<double, 4> add = island_spec_.get_stt(time_);
     stt_table_.push_back(add);
   }
   
@@ -164,13 +191,14 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   }
   
   void do_immigration() {
-    auto colonist = 1 + rnd_.random_number(mainland_n); // +1 because of R counting
+    auto colonist = rnd_.random_number(mainland_n); // +1 because of R counting
+    std::cerr << "immi: " << colonist << "\n";
     int index = island_spec_.find_species(colonist);
     if (index >= island_spec_.size()) {
       // could not find colonist
-      island_spec_.push_back(island_spec_row(colonist, t, species_type::I));
+      island_spec_.push_back(island_spec_row(colonist, time_, species_type::I));
     } else {
-      island_spec_[index].colonisation_time = t;
+      island_spec_[index].colonisation_time = time_;
     }
   }
   
@@ -186,18 +214,20 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     if (potential_immigrants.size() > 1) {
       index = potential_immigrants[ rnd_.random_number(potential_immigrants.size())];
     }
-    
+    std::cerr << "ana: " << index << "\n";
     max_spec_id++;
     island_spec_.anagenesis(index, max_spec_id);
   }
   
   void do_cladogenesis() {
     auto index = rnd_.random_number(island_spec_.size());
-    island_spec_.cladogenesis(index, &max_spec_id, t);
+    std::cerr << "clado: " << index << "\n";
+    island_spec_.cladogenesis(index, &max_spec_id, time_);
   }
   
   void do_extinction() {
     auto index = rnd_.random_number(island_spec_.size());
+    std::cerr << "extinct: " << index << "\n";
     auto type_of_species = island_spec_[index].type_species;
     if (type_of_species == species_type::C) {
       remove_cladogenetic(index);
@@ -208,9 +238,10 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   }
   
   event DAISIE_sample_event_cr() {
-    double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
-    auto r = rnd_.uniform(sum_rates);
-    
+   
+   double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
+    auto r = R::runif(0, sum_rates);    //rnd_.uniform(sum_rates);
+    std::cerr << "sum_rates: " << r << "\n";
     if (r < rates[immigration]) return immigration;
     if (r < rates[extinction])  return extinction;
     if (r < rates[anagenesis])  return anagenesis;
@@ -220,12 +251,17 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void calc_next_timeval(double* t) {
     double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
+
+    std::cerr << "next_timeval: " << *t << " " << sum_rates << " ";
+       //       rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
     if (sum_rates > 0) {
       double dt = rnd_.exp(sum_rates);
+      std::cerr << dt << " ";
       *t += dt;
     } else {
       *t = total_time;
     }
+    std::cerr << "\n";
     return;
   }
   

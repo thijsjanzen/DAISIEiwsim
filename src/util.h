@@ -47,8 +47,8 @@ Rcpp::StringMatrix make_island_spec_for_R(const island_spec& is) {
   int num_cols = 7;
   Rcpp::StringMatrix out(num_rows, num_cols);
   for (size_t i = 0; i < is.size(); ++i) {
-    out(i, 0) = std::to_string(is[i].id);
-    out(i, 1) = std::to_string(is[i].parent);
+    out(i, 0) = std::to_string(100 + is[i].id);
+    out(i, 1) = std::to_string(1 + is[i].parent);
     out(i, 2) = std::to_string(is[i].colonisation_time);
     out(i, 3) = get_string(is[i].type_species);
     out(i, 4) = get_string(is[i].anc_type);

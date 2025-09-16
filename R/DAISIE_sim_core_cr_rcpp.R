@@ -1,7 +1,7 @@
 #' Internal function of the DAISIE simulation
 #'
 #' @inheritParams default_params_doc
-#' @keywords internal
+#' @export
 DAISIE_sim_core_cr_rcpp <- function(
     time,
     mainland_n,
@@ -57,10 +57,10 @@ DAISIE_sim_core_cr_rcpp <- function(
                                     pars,
                                     hyper_pars,
                                     area_pars,
-                                    seed,
+                                    42,
                                     mainland_n,
-                                    island_ontogeny,
-                                    sea_level)
+                                    0, # island ontogeny
+                                    0) # sea level
   
   stt_table = results$stt_table
   colnames(stt_table) <- c("Time","nI","nA","nC")

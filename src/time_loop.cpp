@@ -1,9 +1,9 @@
 #include <Rcpp.h>
-using namespace Rcpp;
 
 #include "util.h"
 #include "DAISIE_sim.h"
 #include "island.h"
+
 
 std::unique_ptr<DAISIE_sim> create_daisie_sim(double total_time,
                                               std::vector<double>& pars,
@@ -71,7 +71,7 @@ std::unique_ptr<DAISIE_sim> create_daisie_sim(double total_time,
   }
 }
 
-
+// [[Rcpp::export]]
 Rcpp::List execute_time_loop_rcpp(double total_time,
                                   std::vector<double>& pars,
                                   Rcpp::List hyper_pars,

@@ -2,14 +2,14 @@
     "debugBreakpointsState": {
         "breakpoints": [
             {
-                "id": 0,
-                "path": "~/Documents/GitHub/DAISIEiwsim/R/DAISIE_sim_core_cr.R",
-                "line_number": 127,
-                "function_steps": "25",
-                "function_name": "DAISIE_sim_core_cr",
+                "id": 3,
+                "path": "~/Documents/GitHub/DAISIEiwsim/R/DAISIE_create_island.R",
+                "line_number": 15,
+                "function_steps": "2",
+                "function_name": "DAISIE_create_island",
                 "state": 1,
                 "editor_state": 1,
-                "editor_line_number": 127,
+                "editor_line_number": 15,
                 "is_pending_debug_completion": false,
                 "needs_updated_steps": false,
                 "type": 0,
