@@ -114,18 +114,22 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     stt_table_.push_back({total_time, 0, 0, 0});
     num_species    = island_spec_.size();
     num_immigrants = island_spec_.num_immigrants();
-    max_spec_id = 0;
+    max_spec_id = mainland_n - 1;
     
     while(time_ < total_time) {
+      
+
       update_rates();
       calc_next_timeval(&time_);
-      
+      if (time_ >= 0.85) {
+        int a = 5;
+      }
       if (time_ < total_time) {
         update_rates();
         
         event chosen_event = DAISIE_sample_event_cr();
         
-        /*if (chosen_event == event::immigration) {
+        if (chosen_event == event::immigration) {
           std::cerr << time_ << " " << "immigration\n";
         }
         
@@ -137,7 +141,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
         }
         if (chosen_event == event::cladogenesis) {
           std::cerr << time_ << " " << "cladogenesis\n";
-        }*/
+        }
         
         
         DAISIE_sim_update_state_cr(chosen_event);
@@ -184,13 +188,13 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void do_immigration() {
     auto colonist = rnd_.random_number(mainland_n); // +1 because of R counting
- //   std::cerr << "immi: " << colonist << "\n";
+    std::cerr << "immi: " << colonist << "\n";
     int index = island_spec_.find_species(colonist);
     if (index >= island_spec_.size()) {
       // could not find colonist
       island_spec_.push_back(island_spec_row(colonist, time_, species_type::I));
     } else {
-      island_spec_[index].colonisation_time = time_;
+        island_spec_[index].colonisation_time = time_;
     }
   }
   
@@ -206,20 +210,20 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     if (potential_immigrants.size() > 1) {
       index = potential_immigrants[ rnd_.random_number(potential_immigrants.size())];
     }
-    // std::cerr << "ana: " << index << "\n";
+    std::cerr << "ana: " << index << "\n";
     max_spec_id++;
     island_spec_.anagenesis(index, max_spec_id);
   }
   
   void do_cladogenesis() {
     auto index = rnd_.random_number(island_spec_.size());
-  //  std::cerr << "clado: " << index << "\n";
+    std::cerr << "clado: " << index << "\n";
     island_spec_.cladogenesis(index, &max_spec_id, time_);
   }
   
   void do_extinction() {
     auto index = rnd_.random_number(island_spec_.size());
- //   std::cerr << "extinct: " << index << "\n";
+    std::cerr << "extinct: " << index << "\n";
     auto type_of_species = island_spec_[index].type_species;
     if (type_of_species == species_type::C) {
       remove_cladogenetic(index);
@@ -233,7 +237,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
    
    double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
     auto r = R::runif(0, sum_rates);    //rnd_.uniform(sum_rates);
-  //  std::cerr << "sum_rates: " << r << "\n";
+    std::cerr << "sum_rates: " << r << "\n";
     if (r < rates[immigration]) return immigration;
     if (r < rates[extinction])  return extinction;
     if (r < rates[anagenesis])  return anagenesis;
@@ -244,16 +248,16 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   void calc_next_timeval(double* t) {
     double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
 
-  //  std::cerr << "next_timeval: " << *t << " " << sum_rates << " ";
-       //       rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
+    std::cerr << "next_timeval: " << *t << " " << sum_rates << " " <<
+              rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
     if (sum_rates > 0) {
       double dt = rnd_.exp(sum_rates);
- //     std::cerr << dt << " ";
+      std::cerr << dt << " ";
       *t += dt;
     } else {
       *t = total_time;
     }
-//    std::cerr << "\n";
+    std::cerr << "\n";
     return;
   }
   
@@ -320,18 +324,17 @@ struct DAISIE_sim_impl : public DAISIE_sim {
       int number_of_splits = static_cast<int>(island_spec_[index_extinct].anc_type.size());
       auto most_recent_split = island_spec_[index_extinct].anc_type.back();
       
-      auto sister_most_recent_split = species::B;
+      auto sister_most_recent_split = 'B';
       
-      if (most_recent_split == species::B) {
-        sister_most_recent_split = species::A;
+      if (most_recent_split == 'B') {
+        sister_most_recent_split = 'A';
       }
-      if (most_recent_split == species::A) { // for completeness and matching R.
-        sister_most_recent_split = species::B;
+      if (most_recent_split == 'A') { // for completeness and matching R.
+        sister_most_recent_split = 'B';
       }
       
       
-      std::vector< species > motif_to_find = island_spec_[index_extinct].anc_type;
-      
+      auto motif_to_find = island_spec_[index_extinct].anc_type;
       
       if (!motif_to_find.empty()) motif_to_find.pop_back();
       
@@ -341,12 +344,27 @@ struct DAISIE_sim_impl : public DAISIE_sim {
       
       for (size_t i = 0; i < sisters.size(); ++i) {
         size_t survivor = sisters[i];
-        if (match_motif(island_spec_[survivor].anc_type, motif_to_find)) {
+        if (match_motif(island_spec_[survivor].anc_type, motif_to_find, number_of_splits)) {
           possible_sister.push_back(survivor);
         }
       }
       
-      if (most_recent_split == species::A) {
+      if (most_recent_split == 'A') {
+        if (possible_sister.empty()) {
+          std::cerr << "motif: ";
+          for (const auto& i : motif_to_find) {
+              std::cerr << i << "";
+          }  std::cerr << "\n";
+          std::cerr << "num entries: " << number_of_splits << "\n";
+          for (size_t i = 0; i < sisters.size(); ++i) {
+            size_t survivor = sisters[i];
+            for (const auto& j : island_spec_[survivor].anc_type) {
+              std::cerr << j << "";
+            } std::cerr << "\n";
+          }
+        }
+
+
         size_t first_sister = possible_sister.front();
         island_spec_[first_sister].extinction_time = island_spec_[index_extinct].extinction_time;
       }

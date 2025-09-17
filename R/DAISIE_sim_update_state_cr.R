@@ -27,7 +27,7 @@ DAISIE_sim_update_state_cr <- function(timeval,
   #IMMIGRATION
   if (possible_event == 1) {
     colonist <- DAISIEiwsim::sample3(mainland_spec, 1)
-    #cat("immi: ", colonist, "\n")
+     cat("immi: ", colonist, "\n")
     if (length(island_spec[, 1]) != 0) {
       isitthere <- which(island_spec[, 1] == colonist)
     } else {
@@ -46,7 +46,7 @@ DAISIE_sim_update_state_cr <- function(timeval,
   if (possible_event == 2) {
       #extinct <- DDD::sample2(1:length(island_spec[, 1]), 1)
     extinct <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
-    #cat("extinct: ", extinct, "\n")
+     cat("extinct: ", extinct, "\n")
       #this chooses the row of species data to remove
       typeofspecies <- island_spec[extinct, 4]
       if (typeofspecies == "I") {
@@ -60,7 +60,8 @@ DAISIE_sim_update_state_cr <- function(timeval,
       if (typeofspecies == "C") {
         #remove cladogenetic
         #first find species with same ancestor AND arrival total_time
-        sisters <- intersect(which(island_spec[, 2] == island_spec[extinct, 2]), which(island_spec[, 3] == island_spec[extinct, 3]))
+        sisters <- intersect(which(island_spec[, 2] == island_spec[extinct, 2]), 
+                             which(island_spec[, 3] == island_spec[extinct, 3]))
         survivors <- sisters[which(sisters != extinct)]
         if (length(sisters) == 2) {
           #survivors status becomes anagenetic
@@ -74,6 +75,10 @@ DAISIE_sim_update_state_cr <- function(timeval,
           numberofsplits <- nchar(island_spec[extinct, 5])
           mostrecentspl <- substring(island_spec[extinct, 5], numberofsplits)
 
+          if (numberofsplits == 7) {
+            a <- 5
+          }
+          
           if (mostrecentspl == "B") {
             sistermostrecentspl <- "A"
           }
@@ -87,11 +92,13 @@ DAISIE_sim_update_state_cr <- function(timeval,
           if (mostrecentspl == "A") {
             #change the splitting date of the sister species so that it inherits the early splitting that used to belong to A.
             # Bug fix here thanks to Nadiah Kristensen: max -> min
-            tochange <- possiblesister[which(island_spec[possiblesister, 6] == min(as.numeric(island_spec[possiblesister, 6])))]
+            tochange <- possiblesister[which(island_spec[possiblesister, 6] == 
+                                               min(as.numeric(island_spec[possiblesister, 6])))]
             island_spec[tochange, 6] <- island_spec[extinct, 6]
           }
           #remove the offending A/B from these species
-          island_spec[possiblesister, 5] <- paste(substring(island_spec[possiblesister, 5], 1, numberofsplits - 1),
+          island_spec[possiblesister, 5] <- 
+            paste(substring(island_spec[possiblesister, 5], 1, numberofsplits - 1),
                                                   substring(island_spec[possiblesister, 5], numberofsplits + 1,
                                                             nchar(island_spec[possiblesister, 5])), sep = "")
           island_spec <- island_spec[-extinct, ]
@@ -109,9 +116,10 @@ DAISIE_sim_update_state_cr <- function(timeval,
     }
     if (length(immi_specs) > 1) {
       #anagenesis <- DDD::sample2(immi_specs, 1)
-      anagenesis <- DAISIEiwsim::sample3(immi_specs, 1)
+      index <- DAISIEiwsim::sample3(immi_specs, 1)
+      anagenesis <- immi_specs[index]
     }
-    #cat("ana: ", anagenesis, "\n")
+    cat("ana: ", anagenesis, "\n")
     maxspecID <- maxspecID + 1
     island_spec[anagenesis, 4] <- "A"
     island_spec[anagenesis, 1] <- maxspecID
@@ -123,7 +131,7 @@ DAISIE_sim_update_state_cr <- function(timeval,
       #tosplit <- DDD::sample2(1:length(island_spec[, 1]), 1)
       tosplit <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
     
-     # cat("clado: ", tosplit, "\n")
+      cat("clado: ", tosplit, "\n")
       #if the species that speciates is cladogenetic
       if (island_spec[tosplit, 4] == "C") {
         #for daughter A

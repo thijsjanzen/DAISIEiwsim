@@ -35,6 +35,7 @@ std::string get_string(const species_type& st) {
   return "NA";
 }
 
+/*
 std::string get_string(const std::vector<species>& anc) {
   std::string out;
   for (const auto& i : anc) {
@@ -42,6 +43,12 @@ std::string get_string(const std::vector<species>& anc) {
     if (i == species::B) out.append("B");
   }
   return out;
+}*/
+
+std::string get_anc_string(const std::string& anc) {
+  if (anc.empty()) return "NA";
+  if (anc.size() < 1) return "NA";
+  return anc;
 }
 
 std::string d_to_string(const double& x, double precision = 10) {
@@ -51,38 +58,37 @@ std::string d_to_string(const double& x, double precision = 10) {
   return ss.str();
 }
 
+std::string get_ext_time(double e_t) {
+  if (e_t == -1) return "NA";
+  return d_to_string(e_t);
+}
+
 Rcpp::StringMatrix make_island_spec_for_R(const island_spec& is) {
   int num_rows = is.size();
   int num_cols = 7;
   Rcpp::StringMatrix out(num_rows, num_cols);
   for (size_t i = 0; i < is.size(); ++i) {
-    out(i, 0) = std::to_string(100 + static_cast<int>(is[i].id));
+    out(i, 0) = std::to_string(1 + static_cast<int>(is[i].id));
     out(i, 1) = std::to_string(1 + static_cast<int>(is[i].parent));
     out(i, 2) = d_to_string(is[i].colonisation_time);
     out(i, 3) = get_string(is[i].type_species);
-    out(i, 4) = get_string(is[i].anc_type);
-    out(i, 5) = d_to_string(is[i].extinction_time);
+    out(i, 4) = get_anc_string(is[i].anc_type);
+    out(i, 5) = get_ext_time(is[i].extinction_time);
     out(i, 6) = get_string(is[i].ext_type);
   }
   return out;
 }
 
-bool match_motif(const std::vector< species >& anc,
-                 const std::vector< species >& motif) {
+bool match_motif(const std::string& anc,
+                 const std::string& motif,
+                 int n) {
   
   if (motif.empty()) return false;
+  if (anc.empty()) return false;
   
-  for (size_t i = 0; i < anc.size(); ++i) {
-    if (anc[i] == motif[0]) {
-      int num_matches = 0;
-      for (size_t j = 0; j < motif.size(); ++j) {
-        if (i + j < anc.size()) {
-          if (anc[i + j] == motif[j]) num_matches++;
-        }
-      }
-      if (num_matches == motif.size()) return true;
-    }
-  }
+ 
+  if (anc.compare(0, n, motif) == 0) return true;
+  
   return false;
 }
 

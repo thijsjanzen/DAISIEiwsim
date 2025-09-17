@@ -3,7 +3,7 @@
 
 enum class species_type {I, A, C}; // I, A, C
 enum extinction_type {clado_extinct, immig_parent};
-enum class species {A, B};
+//enum class species {A, B};
 
 struct island_spec_row {
   // 1
@@ -15,7 +15,7 @@ struct island_spec_row {
   // 4
   species_type type_species;
   // 5
-  std::vector< species > anc_type;
+  std::string anc_type;
   // 6
   double extinction_time = -1.0;
   // 7
@@ -52,7 +52,7 @@ struct island_spec_row {
                   double parent_,
                   double timeval,
                   species_type st,
-                  std::vector< species > anc,
+                  std::string anc,
                   double ext_t) {
     parent = parent_;
     id = id_;
@@ -122,8 +122,8 @@ struct island_spec {
     data_[index].type_species = species_type::C;
     data_[index].id = max_spec_id + 1;
     auto old_anc_type = data_[index].anc_type;
-    old_anc_type.push_back(species::B);
-    data_[index].anc_type.push_back(species::A);
+    old_anc_type.push_back('B');
+    data_[index].anc_type.push_back('A');
 
     data_.push_back(island_spec_row(max_spec_id + 2, 
                                     data_[index].parent, 
@@ -136,14 +136,14 @@ struct island_spec {
   void clado_genesis_not_c(const size_t index, const size_t max_spec_id, const double t) {
     data_[index].type_species = species_type::C;
     data_[index].id = static_cast<double>(max_spec_id + 1);
-    data_[index].anc_type = std::vector<species>({species::A});
+    data_[index].anc_type = std::string({'A'});
     data_[index].extinction_time = data_[index].colonisation_time;
 
     data_.push_back(island_spec_row(max_spec_id + 2, 
                                     data_[index].parent, 
                                     data_[index].colonisation_time,
                                     species_type::C,
-                                    std::vector<species>({species::B}),
+                                    std::string({'B'}),
                                     t));
   }
 

@@ -7,3 +7,7 @@ src/*.so
 src/*.dll
 *.o
 *.so
+/.vscode
+src/DAISIEiwsim.so
+src/RcppExports.o
+src/time_loop.o

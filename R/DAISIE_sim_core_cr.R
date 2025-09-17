@@ -79,7 +79,7 @@ DAISIE_sim_core_cr <- function(
     )
 
     timeval <- timeval_and_dt$timeval
-
+    
   if (timeval < total_time) {
       rates <- update_rates(
         timeval = timeval,
@@ -103,7 +103,9 @@ DAISIE_sim_core_cr <- function(
         rates = rates
       )
       
-      if (1 == 2) {
+      
+      
+      if (1 == 1) {
       if (possible_event == 1) {
         cat(timeval, "immigration\n")
       }
