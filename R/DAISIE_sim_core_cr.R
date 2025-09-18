@@ -105,7 +105,7 @@ DAISIE_sim_core_cr <- function(
       
       
       
-      if (1 == 1) {
+      if (1 == 2) {
       if (possible_event == 1) {
         cat(timeval, "immigration\n")
       }
@@ -150,7 +150,7 @@ DAISIE_sim_core_cr <- function(
     )
   )
   
-  saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_R.rds")
+  #saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_R.rds")
   
   
   island <- DAISIE_create_island(

@@ -65,7 +65,9 @@ DAISIE_sim_core_cr_rcpp <- function(
   stt_table = results$stt_table
   colnames(stt_table) <- c("Time","nI","nA","nC")
   island_spec = results$island_spec
-  
+  for (i in 5:7) { # Rcpp writes "NA"
+    island_spec[island_spec[,i] == "NA", i] <- NA
+  }
   
   #### Finalize STT ####
   stt_table <- rbind(
@@ -78,7 +80,9 @@ DAISIE_sim_core_cr_rcpp <- function(
     )
   )
   
-  saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_Rcpp.rds")
+  
+  
+  #saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_Rcpp.rds")
   
   island <- DAISIE_create_island(
     stt_table = stt_table,

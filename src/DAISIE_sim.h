@@ -121,14 +121,13 @@ struct DAISIE_sim_impl : public DAISIE_sim {
 
       update_rates();
       calc_next_timeval(&time_);
-      if (max_spec_id == 1021) {
-        int a = 5;
-      }
+      
       if (time_ < total_time) {
         update_rates();
         
         event chosen_event = DAISIE_sample_event_cr();
         
+        if (1 == 2) {
         if (chosen_event == event::immigration) {
           std::cerr << time_ << " " << "immigration\n";
         }
@@ -141,7 +140,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
         }
         if (chosen_event == event::cladogenesis) {
           std::cerr << time_ << " " << "cladogenesis\n";
-        }
+        }}
         
         
         DAISIE_sim_update_state_cr(chosen_event);
@@ -160,12 +159,6 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     rates[event::extinction]   = get_extinction_rate();
     rates[event::anagenesis]   = get_anagenesis_rate();
     rates[event::cladogenesis] = get_cladogenesis_rate();
-
-    // std::cerr << "rates: ";
-    // for (const auto& i : rates) {
-    //   std::cerr << i << " ";
-    // } std::cerr << " " << num_species << "\n";
-
   }
   
   void update_stt_table() {
@@ -188,7 +181,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void do_immigration() {
     auto colonist = rnd_.random_number(mainland_n); // +1 because of R counting
-    std::cerr << "immi: " << colonist << "\n";
+  //  std::cerr << "immi: " << colonist << "\n";
     int index = island_spec_.find_species(colonist);
     if (index >= island_spec_.size()) {
       // could not find colonist
@@ -210,24 +203,21 @@ struct DAISIE_sim_impl : public DAISIE_sim {
     if (potential_immigrants.size() > 1) {
       index = potential_immigrants[ rnd_.random_number(potential_immigrants.size())];
     }
-    std::cerr << "ana: " << index << "\n";
+   // std::cerr << "ana: " << index << "\n";
     max_spec_id++;
     island_spec_.anagenesis(index, max_spec_id);
   }
   
   void do_cladogenesis() {
     auto index = rnd_.random_number(island_spec_.size());
-    std::cerr << "clado: " << index << "\n";
-    if (time_ >= 1.08095 && time_ <= 1.080960) {
-        int a = 5;
-    }
+    //std::cerr << "clado: " << index << "\n";
     island_spec_.cladogenesis(index, &max_spec_id, time_);
   }
   
   void do_extinction() {
 
     auto index = rnd_.random_number(island_spec_.size());
-    std::cerr << "extinct: " << index << "\n";
+  //  std::cerr << "extinct: " << index << "\n";
     auto type_of_species = island_spec_[index].type_species;
     if (type_of_species == species_type::C) {
       remove_cladogenetic(index);
@@ -241,7 +231,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
    
    double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
     auto r = R::runif(0, sum_rates);    //rnd_.uniform(sum_rates);
-    std::cerr << "sum_rates: " << r << "\n";
+  //  std::cerr << "sum_rates: " << r << "\n";
     if (r <= rates[immigration])                                          return immigration;
     if (r <= rates[extinction] + rates[immigration])                      return extinction;
     if (r <= rates[anagenesis] + rates[extinction] + rates[immigration])  return anagenesis;
@@ -252,16 +242,16 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   void calc_next_timeval(double* t) {
     double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
 
-    std::cerr << "next_timeval: " << *t << " " << sum_rates << " " <<
-              rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
+ //   std::cerr << "next_timeval: " << *t << " " << sum_rates << " " <<
+  //            rates[0] << " " << rates[1] << " " << rates[2] << " " << rates[3] << " ";
     if (sum_rates > 0) {
       double dt = rnd_.exp(sum_rates);
-      std::cerr << dt << " ";
+  //    std::cerr << dt << " ";
       *t += dt;
     } else {
       *t = total_time;
     }
-    std::cerr << "\n";
+   // std::cerr << "\n";
     return;
   }
   
