@@ -33,4 +33,37 @@ test_that("test IW", {
   )
   
   testthat::expect_true(all.equal(res1, res2))
+  
+  for (r in 1:100) {
+    set.seed(r)
+    clado_rate <- runif(1, 0, 5)
+    ext_rate <- runif(1, 0, 1)
+    imm_rate <- runif(1, 0, 0.1)
+    ana_rate <- runif(1, 0, 2)
+    set.seed(r)
+    
+    res1 <-  DAISIE_sim_cr(
+      time = island_age,
+      M = n_mainland_species,
+      pars = c(clado_rate, ext_rate, clade_carr_cap, imm_rate, ana_rate),
+      replicates = 1,
+      divdepmodel = "IW",
+      plot_sims = FALSE,
+      verbose = FALSE,
+      rcpp = FALSE
+    )
+    
+    set.seed(r)
+    res2 <-  DAISIE_sim_cr(
+      time = island_age,
+      M = n_mainland_species,
+      pars = c(clado_rate, ext_rate, clade_carr_cap, imm_rate, ana_rate),
+      replicates = 1,
+      divdepmodel = "IW",
+      plot_sims = FALSE,
+      verbose = FALSE,
+      rcpp = TRUE
+    )
+    testthat::expect_true(all.equal(res1, res2))
+  }
 })
