@@ -77,6 +77,9 @@ DAISIE_sim_core_cr_rcpp <- function(
       stt_table[nrow(stt_table), 4]
     )
   )
+  
+  saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_Rcpp.rds")
+  
   island <- DAISIE_create_island(
     stt_table = stt_table,
     total_time = total_time,

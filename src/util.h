@@ -25,6 +25,9 @@ std::string get_string(const extinction_type& an) {
   if (an == extinction_type::immig_parent) {
     return "Immig_parent";
   }
+  if (an == extinction_type::none) {
+    return "NA";
+  }
   return "NA";
 }
 
@@ -73,7 +76,7 @@ Rcpp::StringMatrix make_island_spec_for_R(const island_spec& is) {
     out(i, 2) = d_to_string(is[i].colonisation_time);
     out(i, 3) = get_string(is[i].type_species);
     out(i, 4) = get_anc_string(is[i].anc_type);
-    out(i, 5) = get_ext_time(is[i].extinction_time);
+    out(i, 5) = get_ext_time(is[i].get_extinction_time());
     out(i, 6) = get_string(is[i].ext_type);
   }
   return out;

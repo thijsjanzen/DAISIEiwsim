@@ -45,8 +45,13 @@ DAISIE_sim_update_state_cr <- function(timeval,
   #EXTINCTION
   if (possible_event == 2) {
       #extinct <- DDD::sample2(1:length(island_spec[, 1]), 1)
-    extinct <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
-     cat("extinct: ", extinct, "\n")
+      extinct <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
+      cat("extinct: ", extinct, "\n")
+      if (timeval < 0.278 && timeval > 0.276) {
+        a <- 5
+      }
+      
+      
       #this chooses the row of species data to remove
       typeofspecies <- island_spec[extinct, 4]
       if (typeofspecies == "I") {
@@ -74,10 +79,6 @@ DAISIE_sim_update_state_cr <- function(timeval,
         if (length(sisters) >= 3) {
           numberofsplits <- nchar(island_spec[extinct, 5])
           mostrecentspl <- substring(island_spec[extinct, 5], numberofsplits)
-
-          if (numberofsplits == 7) {
-            a <- 5
-          }
           
           if (mostrecentspl == "B") {
             sistermostrecentspl <- "A"
@@ -132,7 +133,13 @@ DAISIE_sim_update_state_cr <- function(timeval,
       tosplit <- DAISIEiwsim::sample3(1:length(island_spec[, 1]), 1)
     
       cat("clado: ", tosplit, "\n")
+      if (timeval >= 1.08095 && timeval <= 1.080960) {
+        a <- 5
+      }
+      
+      
       #if the species that speciates is cladogenetic
+      #
       if (island_spec[tosplit, 4] == "C") {
         #for daughter A
         island_spec[tosplit, 4] <- "C"
@@ -166,7 +173,8 @@ DAISIE_sim_update_state_cr <- function(timeval,
                                island_spec[tosplit, 3],
                                "C",
                                "B",
-                               timeval, NA))
+                               timeval,
+                               NA))
         maxspecID <- maxspecID + 2
       }
     }

@@ -118,8 +118,6 @@ DAISIE_sim_core_cr <- function(
       if (possible_event == 4) {
         cat(timeval, "cladogenesis\n")
       }}
-      
-      
 
       updated_state <- DAISIE_sim_update_state_cr(
         timeval = timeval,
@@ -151,6 +149,10 @@ DAISIE_sim_core_cr <- function(
       stt_table[nrow(stt_table), 4]
     )
   )
+  
+  saveRDS(object = island_spec, file = "/Users/thijsjanzen/island_spec_R.rds")
+  
+  
   island <- DAISIE_create_island(
     stt_table = stt_table,
     total_time = total_time,

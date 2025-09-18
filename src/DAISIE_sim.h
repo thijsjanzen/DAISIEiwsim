@@ -121,7 +121,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
 
       update_rates();
       calc_next_timeval(&time_);
-      if (time_ >= 0.85) {
+      if (max_spec_id == 1021) {
         int a = 5;
       }
       if (time_ < total_time) {
@@ -218,10 +218,14 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   void do_cladogenesis() {
     auto index = rnd_.random_number(island_spec_.size());
     std::cerr << "clado: " << index << "\n";
+    if (time_ >= 1.08095 && time_ <= 1.080960) {
+        int a = 5;
+    }
     island_spec_.cladogenesis(index, &max_spec_id, time_);
   }
   
   void do_extinction() {
+
     auto index = rnd_.random_number(island_spec_.size());
     std::cerr << "extinct: " << index << "\n";
     auto type_of_species = island_spec_[index].type_species;
@@ -238,9 +242,9 @@ struct DAISIE_sim_impl : public DAISIE_sim {
    double sum_rates = rates[0] + rates[1] + rates[2] + rates[3];
     auto r = R::runif(0, sum_rates);    //rnd_.uniform(sum_rates);
     std::cerr << "sum_rates: " << r << "\n";
-    if (r < rates[immigration]) return immigration;
-    if (r < rates[extinction])  return extinction;
-    if (r < rates[anagenesis])  return anagenesis;
+    if (r <= rates[immigration])                                          return immigration;
+    if (r <= rates[extinction] + rates[immigration])                      return extinction;
+    if (r <= rates[anagenesis] + rates[extinction] + rates[immigration])  return anagenesis;
     
     return cladogenesis;
   }
@@ -297,6 +301,8 @@ struct DAISIE_sim_impl : public DAISIE_sim {
   
   void remove_cladogenetic(size_t index_extinct) {
     
+
+
     std::vector<size_t> sisters;
     int num_sisters = 0;
     for (size_t i = 0; i < island_spec_.size(); ++i) {
@@ -313,6 +319,7 @@ struct DAISIE_sim_impl : public DAISIE_sim {
       island_spec_[survivors].type_species = species_type::A;
       island_spec_[survivors].ext_type = extinction_type::clado_extinct;
       island_spec_[survivors].anc_type.clear();
+      island_spec_[survivors].set_extinction_time(-1); // = -1; // NA
       
       island_spec_.remove(index_extinct);
       return;
@@ -350,23 +357,19 @@ struct DAISIE_sim_impl : public DAISIE_sim {
       }
       
       if (most_recent_split == 'A') {
-        if (possible_sister.empty()) {
-          std::cerr << "motif: ";
-          for (const auto& i : motif_to_find) {
-              std::cerr << i << "";
-          }  std::cerr << "\n";
-          std::cerr << "num entries: " << number_of_splits << "\n";
-          for (size_t i = 0; i < sisters.size(); ++i) {
-            size_t survivor = sisters[i];
-            for (const auto& j : island_spec_[survivor].anc_type) {
-              std::cerr << j << "";
-            } std::cerr << "\n";
+        size_t to_change = possible_sister.front();
+        if (possible_sister.size() > 1) {
+          // we have to pick the youngest sister
+          for (size_t i = 1; i < possible_sister.size(); ++i) {
+            if (island_spec_[possible_sister[i]].get_extinction_time() < 
+                island_spec_[to_change].get_extinction_time()) {
+                  to_change = possible_sister[i];
+                }
           }
         }
 
-
-        size_t first_sister = possible_sister.front();
-        island_spec_[first_sister].extinction_time = island_spec_[index_extinct].extinction_time;
+        //island_spec_[first_sister].extinction_time = island_spec_[index_extinct].extinction_time;
+        island_spec_[to_change].set_extinction_time(island_spec_[index_extinct].get_extinction_time());
       }
       // remove the offending A/B
       for (const auto ps : possible_sister) {
