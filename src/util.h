@@ -76,7 +76,7 @@ Rcpp::StringMatrix make_island_spec_for_R(const island_spec& is) {
     out(i, 2) = d_to_string(is[i].colonisation_time);
     out(i, 3) = get_string(is[i].type_species);
     out(i, 4) = get_anc_string(is[i].anc_type);
-    out(i, 5) = get_ext_time(is[i].get_extinction_time());
+    out(i, 5) = get_ext_time(is[i].extinction_time);
     out(i, 6) = get_string(is[i].ext_type);
   }
   return out;
@@ -86,11 +86,16 @@ bool match_motif(const std::string& anc,
                  const std::string& motif,
                  int n) {
   
-  if (motif.empty()) return false;
+  //if (motif.empty()) return false;
   if (anc.empty()) return false;
+  if (anc.size() < n) return false;
+  // if (motif.size() < n) return false;
   
- 
   if (anc.compare(0, n, motif) == 0) return true;
+  //if (anc.starts_with(motif)) return true;
+  // fastest:
+  //  if (std::memcmp(anc.data(), motif.data(), n) == 0) return true;
+  
   
   return false;
 }
